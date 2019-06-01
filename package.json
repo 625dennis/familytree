@@ -8,12 +8,14 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "sigma": "^1.2.1",
     "vue": "^2.6.10",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
+    "vue-cli-plugin-pug": "^1.0.7",
     "vue-template-compiler": "^2.6.10"
   }
 }
