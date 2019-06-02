@@ -6,10 +6,19 @@
 	import Sigma from 'sigma'
 	
 	let familyTree
+		
+	const getName = person => {
+		if(typeof person === 'object') {
+			const { first, middle, last } = person
+			return `${first} ${last}`
+		} else {
+			return person
+		}
+	}
 	
 	let countAncestors 
-	countAncestors = (family, name) => {
-		const [child, parents = []] = family.find(([child]) => child === name)
+	countAncestors = (family, member) => {
+		const [child, parents = []] = family.find(([child]) => getName(child) === getName(member))
 		
 		const counts = parents.map(parent => countAncestors(family, parent))
 		const greatest = counts.reduce((greatest, count) => count > greatest ? count : greatest, 0)
@@ -30,8 +39,8 @@
 			const generation = countAncestors(familyData, child)
 		
 			graph.addNode({
-				id: child,
-				label: child,
+				id: getName(child),
+				label: getName(child),
 				x: countGeneration(addedFamily, generation) / 4,
 				y: generation / 4,
 				size: 1,
@@ -43,9 +52,9 @@
 			if(parents) {
 				parents.forEach(parent => {
 					graph.addEdge({
-						id: `${parent} - ${child}`,
-						source: parent,
-						target: child
+						id: `${getName(parent)} - ${getName(child)}`,
+						source: getName(parent),
+						target: getName(child)
 					})
 				})
 			}
@@ -69,7 +78,11 @@
 					['Pera'],
 					['Besim', ['Muhamed', 'Redzima']],
 					['Cedna', ['Todor', 'Pera']],
-					['Dennis', ['Besim', 'Cedna']],
+					[{
+						first: 'Dennis',
+						middle: '',
+						last: 'Kuduzovic'
+					}, ['Besim', 'Cedna']],
 					['Nina', ['Besim', 'Cedna']]
 				]
 			}
